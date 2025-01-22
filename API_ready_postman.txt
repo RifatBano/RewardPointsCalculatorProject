@@ -1,0 +1,64 @@
+api ready for postman:
+
+step 1-register:
+post: http://localhost:8090/api/customers/register
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string"
+}
+step 2-login:
+post:http://localhost:8090/api/customers/login
+{
+  "email": "string",
+  "password": "string"
+}
+
+
+step 3-For customer_transaction:
+
+Authorization: bearer token
+
+ADD-
+post: http://localhost:8090/api/customers/transactions
+
+{
+  "amount": 0.1,
+  "transactionDate": "2025-01-22",
+  "spentDetails": "string"
+}
+
+EDIT-
+put: http://localhost:8090/api/customers/transactions/{transactionid}
+
+{
+  "amount": 0.1,
+  "transactionDate": "2025-01-22",
+  "spentDetails": "string"
+}
+
+GET-
+get: http://localhost:8090/api/customers/transactions
+
+DELETE-
+delete: http://localhost:8090/api/customers/transactions/{transactionid}
+
+
+step 4- For reward_points
+
+Authorization: bearer token
+
+Get points month and year wise
+GET:http://localhost:8090/api/customers/reward-points/{month}/{year}
+
+
+Get all points for that customer
+GET:http://localhost:8090/api/customers/reward-points/all
+
+step 5-logout:
+post: http://localhost:8090/api/customers/logout
+
+Authorization: bearer token
+
+
