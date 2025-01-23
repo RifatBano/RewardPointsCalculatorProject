@@ -1,0 +1,221 @@
+API Ready For Postman:
+----------------------
+step 1-register:
+
+post: http://localhost:8090/api/customers/register
+RequestBody:
+{
+  "firstName": "Arvind",
+  "lastName": "AS",
+  "email": "arvind@gmail.com",
+  "password": "arvind123"
+}
+
+ResponseBody:
+Status Code: 201 created
+{
+    "id": 13,
+    "firstName": "Arvind",
+    "lastName": "AS",
+    "email": "arvind@gmail.com",
+    "password": "$2a$10$WKHlS4QGPcoFbCZ0W7yX0eyKoOTy7v65Mc4qEzXwq9Jztu9NqNT.q",
+    "transactions": null,
+    "authorities": null,
+    "username": "arvind@gmail.com",
+    "enabled": true,
+    "accountNonLocked": true,
+    "accountNonExpired": true,
+    "credentialsNonExpired": true
+}
+
+------------------------------------------------------------------------------------------
+step 2-login:
+post:http://localhost:8090/api/customers/login
+RequestBody:
+{
+  "email": "arvind@gmail.com",
+  "password": "arvind123"
+}
+
+ResponseBody:
+Status Code: 200 Ok
+
+{
+    "jwt": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnZpbmRAZ21haWwuY29tIiwiaWF0IjoxNzM3NjM0NzAxLCJleHAiOjE3Mzc2MzgzMDF9.Dhd0QtUOmVtdn08cH2_oAkdAP77MlGvkDYb6I2ieBbdQpjp7WYL3oTm-acoqxapJvvQix9_mKfqIokE6NwJKaw"
+}
+
+------------------------------------------------------------------------------------------------
+step 3-For customer_transaction:
+
+Select Authorization: paste bearer token generated (JWT) from step 2 /login.   
+Authorization: bearer token      eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnZpbmRAZ21haWwuY29tIiwiaWF0IjoxNzM3NjM0NzAxLCJleHAiOjE3Mzc2MzgzMDF9.Dhd0QtUOmVtdn08cH2_oAkdAP77MlGvkDYb6I2ieBbdQpjp7WYL3oTm-acoqxapJvvQix9_mKfqIokE6NwJKaw
+for this customer transaction CRUD operation
+
+1)ADD-
+post: http://localhost:8090/api/customers/transactions
+
+RequestBody:
+{
+  "amount": 67,
+  "transactionDate": "2025-01-22",
+  "spentDetails": "Hair oil"
+}
+
+ResponseBody:
+Status Code:201 Created
+{
+    "id": 27,
+    "amount": 67.0,
+    "spentDetails": "Hair oil",
+    "date": "2025-01-22"
+}
+
+
+
+2)EDIT-
+put: http://localhost:8090/api/customers/transactions/{transactionid}
+
+RequestBody:
+    PUT:http://localhost:8090/api/customers/transactions/27
+
+{
+  "amount": 80,
+  "transactionDate": "2025-01-22",
+  "spentDetails": "Hair oil kit"
+}
+
+ResponseBody:
+Status Code:200 Ok
+
+{
+    "id": 27,
+    "amount": 80.0,
+    "spentDetails": "Hair oil kit",
+    "date": "2025-01-22"
+}
+
+
+
+3)GET-
+get: http://localhost:8090/api/customers/transactions
+
+RequestBody:None
+
+ResponseBody:
+Status Code:200 Ok
+[
+    {
+        "id": 27,
+        "amount": 80.0,
+        "spentDetails": "Hair oil kit",
+        "date": "2025-01-22"
+    }
+]
+
+
+4)DELETE- 
+delete: http://localhost:8090/api/customers/transactions/{transactionid}
+
+RequestBody: DELETE: http://localhost:8090/api/customers/transactions/27
+
+ResponseBody: None
+Status Code: 204 No Content
+
+(Suggestion: You should perform DELETE operation after step 4 to view all the reward points)
+-----------------------------------------------------------------------------------------
+step 4- For reward_points
+
+set Authorization: bearer token generated (JWT) from step 2 /login 
+
+
+
+1) Get points month and year wise
+GET:http://localhost:8090/api/customers/reward-points/{month}/{year}
+RequestBody: GET:http://localhost:8090/api/customers/reward-points/1/2025
+None
+ResponseBody:
+
+Status Code: 200 Ok
+
+{
+    "id": null,
+    "customer": {
+        "id": 13,
+        "firstName": "Arvind",
+        "lastName": "AS",
+        "email": "arvind@gmail.com",
+        "password": "$2a$10$WKHlS4QGPcoFbCZ0W7yX0eyKoOTy7v65Mc4qEzXwq9Jztu9NqNT.q",
+        "transactions": [
+            {
+                "id": 27,
+                "amount": 80.0,
+                "spentDetails": "Hair oil kit",
+                "date": "2025-01-22"
+            }
+        ],
+        "authorities": null,
+        "username": "arvind@gmail.com",
+        "enabled": true,
+        "accountNonLocked": true,
+        "accountNonExpired": true,
+        "credentialsNonExpired": true
+    },
+    "points": 30,
+    "month": 1,
+    "year": 2025
+}
+
+
+
+
+2)Get all points for that customer
+GET:http://localhost:8090/api/customers/reward-points/all
+RequestBody:
+None
+ResponseBody:
+
+Status Code: 200 Ok
+[
+    {
+        "id": 17,
+        "customer": {
+            "id": 13,
+            "firstName": "Arvind",
+            "lastName": "AS",
+            "email": "arvind@gmail.com",
+            "password": "$2a$10$WKHlS4QGPcoFbCZ0W7yX0eyKoOTy7v65Mc4qEzXwq9Jztu9NqNT.q",
+            "transactions": [
+                {
+                    "id": 27,
+                    "amount": 80.0,
+                    "spentDetails": "Hair oil kit",
+                    "date": "2025-01-22"
+                }
+            ],
+            "authorities": null,
+            "username": "arvind@gmail.com",
+            "enabled": true,
+            "accountNonLocked": true,
+            "accountNonExpired": true,
+            "credentialsNonExpired": true
+        },
+        "points": 30,
+        "month": 1,
+        "year": 2025
+    }
+]
+-----------------------------------------------------------------------------------------------
+step 5-logout:
+post: http://localhost:8090/api/customers/logout
+
+set Authorization: bearer token generated (JWT) from step 2 /login 
+RequestBody:None
+
+ResponseBody: 
+Status Code: 200 Ok
+
+Successfully logged out
+
+
+
+
