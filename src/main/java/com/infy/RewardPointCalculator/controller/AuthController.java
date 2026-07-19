@@ -26,7 +26,7 @@ import com.infy.RewardPointCalculator.tokenConfig.JwtTokenProvider;
  * AuthController helps customer to login and logout. It includes the APIs
  * /login and /logout.
  * 
- * @author rifat.bano
+ * @author rifat.bano.19
  */
 @CrossOrigin
 @RestController
